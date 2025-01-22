@@ -21,11 +21,55 @@
 // CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef _TEST_H_
-#define _TEST_H_
+#include "../broutines.h"
 
-void fib_test();
-void loop_test();
-void task_test();
+#include <stdbool.h>
+#include <stdio.h>
+#include <assert.h>
 
-#endif // _TEST_H_
+int A = 0;
+int B = 0;
+int Main = 0;
+
+void taskA()
+{
+  while(true)
+  {
+    A++;
+    broSwitch(1);
+  }
+
+  return;
+}
+
+void taskB()
+{
+  while(true)
+  {
+    B++;
+    broSwitch(2);
+  }
+
+  return;
+}
+
+void task_test()
+{
+  if (broInit() < 0) perror("broInit");
+  
+  broStart(&taskA, 0, 64*1024);
+  broStart(&taskB, 0, 64*1024);
+
+  //while(true)
+  for (int i = 0; i < 5; ++i)
+  {
+    Main++;
+    broSwitch(0);
+  }
+
+  assert(A == 6);
+  assert(B == 6);
+  assert(Main == 5);
+
+  return;
+}

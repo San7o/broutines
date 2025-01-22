@@ -1,10 +1,10 @@
 # b-routines
 
-So, recently I was wondering how you could implement gorotuines in C.
+So, recently I was wondering how you could implement goroutines in C.
 Since C is a very powerful language that lets you do all kinds of
 abominations with memory, there must be a way to make this work. A
-goroutine is a [green-thread](https://en.wikipedia.org/wiki/Green_thread)
-, that is, a "virtual" thread that is not managed by the OS and lives
+goroutine is a [green-thread](https://en.wikipedia.org/wiki/Green_thread),
+that is, a "virtual" thread that is not managed by the OS and lives
 only in user space.
 
 I was also experimenting with C++20 coroutines in C wich are functions
